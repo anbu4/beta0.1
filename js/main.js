@@ -2,23 +2,18 @@ fetch('https://anbu4.github.io/DataApp/data.json')
     .then(res=> res.json())
     .then(data =>{
         
-    console.log(data);
 
     
 // jsx fucntion
 function creatSlaydCard(arr, boxs, re='') {
     const slaydBox = document.querySelector(`.${boxs}`);
-    let count = 0
-    arr.map(item => {
-        count ++
-        if(count > 7){
-            return
-        }
+
+    arr.map(item => {    
         const creatItem = document.createElement('a');
         creatItem.dataset.id = item.id
         creatItem.dataset.catigory = item.category
         creatItem.classList.add('slayd_card');
-        creatItem.id = 'item' + re + count;
+        creatItem.id = 'item' + re + item.id;
         creatItem.href = 'move.html';
         creatItem.innerHTML = ` 
         <div class="slayd_item">

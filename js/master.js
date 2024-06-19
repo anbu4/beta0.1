@@ -1,19 +1,27 @@
-fetch('https://anbu4.github.io/DataApp/data.json')
+let xmlLink;
+const localCatigory = localStorage.getItem('catigory')
+if(localCatigory == 'film'){
+    xmlLink = 'https://anbu4.github.io/DataFilms/film.json';
+}
+if(localCatigory == 'anime'){
+    xmlLink = 'https://anbu4.github.io/DataAnime/anime.json';
+}
+if(localCatigory == 'serial'){
+    xmlLink = 'https://anbu4.github.io/DataAnime/anime.json'
+}
+fetch(xmlLink)
     .then(res=> res.json())
-    .then(data =>{
-
-
-
+    .then(arr =>{
 
 
 // jsx fucntion
-function creatSlaydCard(catigory,boxs,re='') {
+function creatSlaydCard(re='') {
     const slaydBox = document.querySelector('.slayd_box');
     const caption = document.querySelector('.caption');
     caption.innerHTML = localStorage.getItem('catigory');
-    // slaydBox.classList.add(`.${boxs}`);
+
     let count = 0
-    data[catigory].map(item => {
+    arr.map(item => {
         count ++
         if(count > 7){
             return
@@ -35,18 +43,18 @@ function creatSlaydCard(catigory,boxs,re='') {
         </div>
         </div>
         </div>`
-        creatItem.addEventListener('click', parseCard)
+        creatItem.addEventListener('click', function(){parseCard(item)})
         slaydBox.append(creatItem)
     })
 }
 const itemObj = {}
-function itemParsePages(catigory, genre){
+function itemParsePages(genre){
     let count = 1
     itemObj['itemPage'+count] = [];
 
     if(genre == '' ||genre == null){
-        data[catigory].forEach(item=>{
-            if(itemObj['itemPage'+count].length >= 20){
+        arr.forEach(item=>{
+            if(itemObj['itemPage'+count].length >= 2){
                 count++
                 itemObj['itemPage'+count] = []
             }
@@ -55,9 +63,9 @@ function itemParsePages(catigory, genre){
         return
     }
 
-    data[catigory].forEach(item=>{
+    arr.forEach(item=>{
         let v = item.genre.find(el=>el==genre);
-        if(itemObj['itemPage'+count].length >= 16){
+        if(itemObj['itemPage'+count].length >= 2){
             count++
             itemObj['itemPage'+count] = []
         }
@@ -88,7 +96,7 @@ function creatItemList(i){
             </div> 
         </div>
         `;
-        creatElem.addEventListener('click', parseCard)
+        creatElem.addEventListener('click', function(){parseCard(item)})
         // episodes
         if(item.episodes){
             const episodeNum = document.createElement('div')
@@ -117,8 +125,8 @@ function creatPageNumber(length){
         }
     }
 }
-creatSlaydCard(localStorage.getItem('catigory'));
-itemParsePages(localStorage.getItem('catigory'), localStorage.getItem('genre'));
+creatSlaydCard();
+itemParsePages(localStorage.getItem('genre'));
 creatItemList(+localStorage.getItem('page'))
 const itemObjLength = Object.keys(itemObj).length;
 creatPageNumber(itemObjLength)
@@ -139,7 +147,7 @@ const pageBtnMinus = document.querySelector('.page_btn-minus');
 const filterContent = document.querySelector('.filter_content');
 const filterBtn = document.querySelector('.filter_btn');
 // 
-let countPageii = 1
+// let countPageii = 1
 
 
 // Event
@@ -196,10 +204,10 @@ function pullDataGenre(){
     localStorage.setItem('genre', this.dataset.genre)
     localStorage.setItem('catigory', this.dataset.catigory)
 }
-function parseCard(){
-    let catigory = this.dataset.catigory
-    let id = this.dataset.id
-    let value = data[catigory].find((el)=>el.id == id)
+function parseCard(value){
+    // let catigory = this.dataset.catigory
+    // let id = this.dataset.id
+    // let value = data[catigory].find((el)=>el.id == id)
     localStorage.setItem('moveItem',JSON.stringify(value))
 }
 function itemNumPageEvent(){
