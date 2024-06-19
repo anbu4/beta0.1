@@ -108,4 +108,11 @@ setInterval(() => {
     eventSlayder(recapSlaydCards)
 }, 7500);
 
+
+
+    })
+    .catch(err =>{
+        document.body.innerHTML = `
+        <h1>404:Error</h1>
+        `
     })
