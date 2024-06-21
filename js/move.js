@@ -8,7 +8,7 @@ const header = document.querySelector('.header');
 let itemObj = JSON.parse(localStorage.getItem('moveItem'));
 const burger = document.querySelector('.burger');
 const navbarMobileContent = document.querySelector('.navbar_mobile-content');
-const video = document.querySelector('.video');
+const videoIframe = document.querySelector('.video_iframe');
 
 
 
@@ -31,6 +31,10 @@ function creatHeader(){
                 <ul>Год:</ul>
                 <p class="head_year-volue">${itemObj.year}</p>
             </div>
+            <div class="head_genre">
+                <ul>Episodes:</ul>
+                <p class="head_genre-volue">${itemObj.episodes}</p>
+            </div>
             <div class="head_year">
                 <ul>Страна:</ul>
                 <p class="head_year-volue">${itemObj.count}</p>
@@ -46,11 +50,11 @@ function creatHeader(){
 }
 function creatVideo(count=1){
     if(typeof itemObj.videoUrl == 'object'){
-        video.innerHTML = itemObj.videoUrl[count];  
+        videoIframe.src = itemObj.videoUrl[count];  
         console.log(count);
         return
     }
-    video.innerHTML = itemObj.videoUrl;
+    videoIframe.src = itemObj.videoUrl;
 }
 function creatNumEpisode(){
     const episodeNumBox = document.querySelector('.episode_num-box');
