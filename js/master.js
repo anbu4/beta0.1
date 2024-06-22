@@ -1,5 +1,6 @@
 let xmlLink;
 const localCatigory = localStorage.getItem('catigory')
+const localGanre = localStorage.getItem('genre')
 if(localCatigory == 'film'){
     xmlLink = 'https://anbu4.github.io/DataFilms/film.json';
 }
@@ -18,7 +19,7 @@ fetch(xmlLink)
 function creatSlaydCard(re='') {
     const slaydBox = document.querySelector('.slayd_box');
     const caption = document.querySelector('.caption');
-    caption.innerHTML = localStorage.getItem('catigory');
+    caption.innerHTML = localCatigory;
 
     let count = 0
     arr.map(item => {
@@ -101,7 +102,6 @@ function creatItemList(i){
         if(item.episodes){
             const episodeNum = document.createElement('div')
             episodeNum.classList.add('item_series')
-            // episodeNum.innerHTML = item.episodes + ' series';
             episodeNum.innerHTML = `<span>${item.episodes}</span>series`;
             creatElem.append(episodeNum)
         }
@@ -113,7 +113,8 @@ function creatItemList(i){
 function creatPageNumber(length){
     const pageControlsNum = document.querySelector('.page_controls-num');
     const pageNumLocal = +localStorage.getItem('page');
-    for(let num = 1;num<=length;num++){
+
+    for(let num = 1; num<=length; num++){
         const itemNum = document.createElement('a');
         itemNum.href = 'master.html'
         itemNum.dataset.pageid = num;
@@ -121,12 +122,12 @@ function creatPageNumber(length){
         itemNum.addEventListener('click', itemNumPageEvent);
         pageControlsNum.append(itemNum)
         if(num == pageNumLocal || num == 1 && pageNumLocal == 0){
-            itemNum.classList.add('active_page')
+            itemNum.classList.add('active_page');
         }
     }
 }
 creatSlaydCard();
-itemParsePages(localStorage.getItem('genre'));
+itemParsePages(localGanre);
 creatItemList(+localStorage.getItem('page'))
 const itemObjLength = Object.keys(itemObj).length;
 creatPageNumber(itemObjLength)
@@ -139,7 +140,9 @@ const slaydCards = document.querySelectorAll('.slayd_card')
 const navSearchLink = document.querySelector('.nav_search-link');
 const navbarInput = document.querySelector('.navbar_input');
 const navLinks = document.querySelectorAll('.nav_links');
+const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
 const genreBtn = document.querySelectorAll('.genre_btn');
+const genreBtnMobile = document.querySelectorAll('.genre_btn-mobile');
 const burger = document.querySelector('.burger');
 const navbarMobileContent = document.querySelector('.navbar_mobile-content');
 const pageBtnPlus = document.querySelector('.page_btn-plus');
@@ -156,9 +159,27 @@ navSearchLink.addEventListener('click', () => {
 })
 navLinks.forEach(link =>{
     link.addEventListener('click',pullDataCatigory)
+    if(link.dataset.catigory == localCatigory){
+        link.classList.add('nav_link-active')
+    }
+})
+navLinksMobile.forEach(link =>{
+    link.addEventListener('click',pullDataCatigory)
+    if(link.dataset.catigory == localCatigory){
+        link.classList.add('link-active')
+    }
 })
 genreBtn.forEach(btn =>{
     btn.addEventListener('click', pullDataGenre)
+    if(btn.dataset.genre == localGanre && btn.dataset.catigory == localCatigory){
+        btn.classList.add('link-active')
+    }
+})
+genreBtnMobile.forEach(btn =>{
+    btn.addEventListener('click', pullDataGenre)
+    if(btn.dataset.genre == localGanre){
+        btn.classList.add('link-active')
+    }
 })
 burger.addEventListener('click',() =>{
     navbarMobileContent.classList.toggle('nav_mobile-active')
@@ -169,7 +190,6 @@ pageBtnPlus.addEventListener('click',() =>{
        pageNum = 1;
     }
     localStorage.setItem('page',pageNum)
-
 })
 pageBtnMinus.addEventListener('click',() =>{
     let pageNum = --document.querySelector('.active_page').dataset.pageid;
@@ -205,9 +225,6 @@ function pullDataGenre(){
     localStorage.setItem('catigory', this.dataset.catigory)
 }
 function parseCard(value){
-    // let catigory = this.dataset.catigory
-    // let id = this.dataset.id
-    // let value = data[catigory].find((el)=>el.id == id)
     localStorage.setItem('moveItem',JSON.stringify(value))
 }
 function itemNumPageEvent(){
@@ -221,13 +238,18 @@ setInterval(() => {
 }, 3200);
 
 
-    })
-    .catch(err =>{
+})
+.catch(err =>{
         document.body.innerHTML = `
         <h1>Сервер перегружен или не отвечает</h1>
         <h2>Перезагрузите или передите на главную</h2>
         <a href="index.html" class="nav_logo-link">
-            <img class="logo-link_img" src="" alt="">
+            <img class="logo-link_img" src="Icons/cinema.png" alt="">
         </a>
         `
-    })
+})
+
+localStorage.setItem('moveItem', '');
+localStorage.setItem('episodeNum', '');
+localStorage.removeItem('scrollEp');
+

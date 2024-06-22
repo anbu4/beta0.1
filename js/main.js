@@ -110,9 +110,13 @@ setInterval(() => {
 
 
 
-    })
-    .catch(err =>{
+})
+.catch(err =>{
         document.body.innerHTML = `
         <h1>404:Error</h1>
         `
-    })
+});
+
+localStorage.setItem('moveItem', '');
+localStorage.setItem('episodeNum', '');
+localStorage.removeItem('scrollEp');

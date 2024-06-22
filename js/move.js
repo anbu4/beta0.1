@@ -9,6 +9,8 @@ let itemObj = JSON.parse(localStorage.getItem('moveItem'));
 const burger = document.querySelector('.burger');
 const navbarMobileContent = document.querySelector('.navbar_mobile-content');
 const videoIframe = document.querySelector('.video_iframe');
+const videoBoxBg = document.querySelector('.video_box-bg img')
+
 
 
 
@@ -24,48 +26,72 @@ function creatHeader(){
         <h1 class="header_title">${itemObj.title}</h1>
         <div class="header_content">
             <div class="head_genre">
-                <ul>Жанр:</ul>
+                <ul>Genre:</ul>
                 <p class="head_genre-volue">${genre}</p>
             </div>
             <div class="head_year">
-                <ul>Год:</ul>
+                <ul>Year:</ul>
                 <p class="head_year-volue">${itemObj.year}</p>
             </div>
-            <div class="head_genre">
+            <div class="head_genre head_episode">
                 <ul>Episodes:</ul>
                 <p class="head_genre-volue">${itemObj.episodes}</p>
             </div>
             <div class="head_year">
-                <ul>Страна:</ul>
+                <ul>Country:</ul>
                 <p class="head_year-volue">${itemObj.count}</p>
             </div>
             <div class="head_description">
-                <ul>Опсисания:</ul>
+                <ul>Summary:</ul>
                 <img class="burger_summary" src="Icons/left-chevron.png">
                 <li class="head_description-volue">${itemObj.summary}</li>
             </div>
         </div>
     </div>
-    `
+    `;
+    if(itemObj.episodes == undefined || itemObj.episodes == ''){
+        header.querySelector('.head_episode').remove()
+    }
+    if(itemObj.summary == undefined || itemObj.summary == ''){
+        header.querySelector('.head_description').remove()
+    }
 }
-function creatVideo(count=1){
+function creatVideo(){
     if(typeof itemObj.videoUrl == 'object'){
+        let count = localStorage.getItem('episodeNum')
+        if(count == null || count == ''){count = 1}
         videoIframe.src = itemObj.videoUrl[count];  
-        console.log(count);
+        videoBoxBg.src = itemObj.slaydImg;
         return
     }
     videoIframe.src = itemObj.videoUrl;
+    videoBoxBg.src = itemObj.slaydImg;
+
 }
 function creatNumEpisode(){
     const episodeNumBox = document.querySelector('.episode_num-box');
+    let num = localStorage.getItem('episodeNum')
     if(itemObj.episodes == undefined){ return episodeNumBox.remove()};
+
     for(let i = 1; i <= itemObj.episodes; i++){
-        const btnNum = document.createElement('button');
-        btnNum.addEventListener('click',function(){creatVideo(i)});
+        const btnNum = document.createElement('a');
+        btnNum.href = 'move.html'
+        btnNum.addEventListener('click',function(){localStorage.setItem('episodeNum', i)});
         btnNum.innerHTML = i;
-        episodeNumBox.append(btnNum)
+        if(num == null || num == '' && i == 1){
+            btnNum.classList.add('episode_num-active')
+        }
+        if(num == i){
+            btnNum.classList.add('episode_num-active')
+        }
+        episodeNumBox.append(btnNum);
     }
 
+    // scroll
+    episodeNumBox.scrollLeft = localStorage.getItem('scrollEp')
+    episodeNumBox.addEventListener('scroll',function(){
+        localStorage.setItem('scrollEp', episodeNumBox.scrollLeft)
+    })
 }
 creatHeader()
 creatVideo()
@@ -74,6 +100,7 @@ creatNumEpisode()
 // jsxDom
 const burgerSummary = document.querySelector('.burger_summary');
 const headSummary = document.querySelector('.head_description-volue');
+
 
 // Event
 navSearchLink.addEventListener('click', () => {
@@ -102,5 +129,6 @@ function pullDataGenre(){
     localStorage.setItem('catigory', this.dataset.catigory)
     localStorage.setItem('genre', this.dataset.genre)
 }
+
 
 
