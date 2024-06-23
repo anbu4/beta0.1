@@ -48,6 +48,7 @@ function creatHeader(){
             </div>
         </div>
     </div>
+    
     `;
     if(itemObj.episodes == undefined || itemObj.episodes == ''){
         header.querySelector('.head_episode').remove()

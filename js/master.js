@@ -241,15 +241,15 @@ setInterval(() => {
 
 
 })
-// .catch(err =>{
-//         document.body.innerHTML = `
-//         <h1>Сервер перегружен или не отвечает</h1>
-//         <h2>Перезагрузите или передите на главную</h2>
-//         <a href="index.html" class="nav_logo-link">
-//             <img class="logo-link_img" src="Icons/cinema.png" alt="">
-//         </a>
-//         `
-// })
+.catch(err =>{
+        document.body.innerHTML = `
+        <h1>Сервер перегружен или не отвечает</h1>
+        <h2>Перезагрузите или передите на главную</h2>
+        <a href="index.html" class="nav_logo-link">
+            <img class="logo-link_img" src="Icons/cinema.png" alt="">
+        </a>
+        `
+})
 
 localStorage.setItem('moveItem', '');
 localStorage.setItem('episodeNum', '');

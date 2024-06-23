@@ -120,3 +120,6 @@ setInterval(() => {
 localStorage.setItem('moveItem', '');
 localStorage.setItem('episodeNum', '');
 localStorage.removeItem('scrollEp');
+localStorage.removeItem('genre');
+localStorage.removeItem('catigory');
+localStorage.removeItem('page');
