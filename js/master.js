@@ -55,7 +55,7 @@ function itemParsePages(genre){
 
     if(genre == '' ||genre == null){
         arr.forEach(item=>{
-            if(itemObj['itemPage'+count].length >= 2){
+            if(itemObj['itemPage'+count].length >= 10){
                 count++
                 itemObj['itemPage'+count] = []
             }
@@ -66,15 +66,15 @@ function itemParsePages(genre){
 
     arr.forEach(item=>{
         let v = item.genre.find(el=>el==genre);
-        if(itemObj['itemPage'+count].length >= 2){
+        if(itemObj['itemPage'+count].length >= 10){
             count++
             itemObj['itemPage'+count] = []
         }
         if(v){itemObj['itemPage'+count].push(item)}
     })
 }
-function creatItemList(i){
-    if(i==''){i=1}
+function creatItemList(i, length){
+    if(i==''){i = length}
     const itemContainer = document.querySelector('.item_container');
     itemContainer.innerHTML = ''
     itemObj['itemPage' + i].map(item => {
@@ -105,7 +105,7 @@ function creatItemList(i){
             episodeNum.innerHTML = `<span>${item.episodes}</span>series`;
             creatElem.append(episodeNum)
         }
-        itemContainer.append(creatElem)
+        itemContainer.prepend(creatElem)
     })
 
    
@@ -113,26 +113,28 @@ function creatItemList(i){
 function creatPageNumber(length){
     const pageControlsNum = document.querySelector('.page_controls-num');
     const pageNumLocal = +localStorage.getItem('page');
+    let i = 1
 
-    for(let num = 1; num<=length; num++){
+    for(let num = length; num >= 1; num--){
         const itemNum = document.createElement('a');
         itemNum.href = 'master.html'
         itemNum.dataset.pageid = num;
-        itemNum.innerHTML = num;
+        itemNum.innerHTML = i;
+        i++
         itemNum.addEventListener('click', itemNumPageEvent);
         pageControlsNum.append(itemNum)
-        if(num == pageNumLocal || num == 1 && pageNumLocal == 0){
+        if(num == pageNumLocal || num == length && pageNumLocal == 0){
             itemNum.classList.add('active_page');
         }
     }
 }
 creatSlaydCard();
 itemParsePages(localGanre);
-creatItemList(+localStorage.getItem('page'))
 const itemObjLength = Object.keys(itemObj).length;
+creatItemList(+localStorage.getItem('page'), itemObjLength)
 creatPageNumber(itemObjLength)
 localStorage.setItem('page','')
-
+console.log(itemObj);
 
 
 // DOM
@@ -239,15 +241,15 @@ setInterval(() => {
 
 
 })
-.catch(err =>{
-        document.body.innerHTML = `
-        <h1>Сервер перегружен или не отвечает</h1>
-        <h2>Перезагрузите или передите на главную</h2>
-        <a href="index.html" class="nav_logo-link">
-            <img class="logo-link_img" src="Icons/cinema.png" alt="">
-        </a>
-        `
-})
+// .catch(err =>{
+//         document.body.innerHTML = `
+//         <h1>Сервер перегружен или не отвечает</h1>
+//         <h2>Перезагрузите или передите на главную</h2>
+//         <a href="index.html" class="nav_logo-link">
+//             <img class="logo-link_img" src="Icons/cinema.png" alt="">
+//         </a>
+//         `
+// })
 
 localStorage.setItem('moveItem', '');
 localStorage.setItem('episodeNum', '');
