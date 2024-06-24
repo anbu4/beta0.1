@@ -33,27 +33,31 @@ function creatSlaydCard(arr, boxs, re='') {
         creatSlaydCard(data.film ,'film_card-slayd');
         creatSlaydCard(data.serial , 'serial_card-slayd','Re');
         creatSlaydCard(data.anime, 'anime_card-slayd');
+        creatSlaydCard(data.cartoon, 'cartoon_card-slayd');
 
 
 // DOM
 const filmSlaydCards = document.querySelector('.film_card-slayd').querySelectorAll('.slayd_card');
 const serialSlaydCards = document.querySelector('.serial_card-slayd').querySelectorAll('.slayd_card');
 const animeSlaydCards = document.querySelector('.anime_card-slayd').querySelectorAll('.slayd_card');
-const cartonSlaydCards = document.querySelector('.carton_card-slayd').querySelectorAll('.slayd_card');
+const cartonSlaydCards = document.querySelector('.cartoon_card-slayd').querySelectorAll('.slayd_card');
 const recapSlaydCards = document.querySelector('.recap_card-slayd').querySelectorAll('.slayd_card');
 const navSearchLink = document.querySelector('.nav_search-link');
 const navbarInput = document.querySelector('.navbar_input');
 const navLinks = document.querySelectorAll('.nav_links');
+const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
 const genreBtn = document.querySelectorAll('.genre_btn');
 const burger = document.querySelector('.burger');
 const navbarMobileContent = document.querySelector('.navbar_mobile-content');
-
 
 // Event
 navSearchLink.addEventListener('click', () =>{
     navbarInput.classList.toggle('input_active')
 })
 navLinks.forEach(link =>{
+    link.addEventListener('click',pullDataCatigory)
+})
+navLinksMobile.forEach(link =>{
     link.addEventListener('click',pullDataCatigory)
 })
 genreBtn.forEach(btn =>{
@@ -115,6 +119,7 @@ setInterval(() => {
         document.body.innerHTML = `
         <h1>404:Error</h1>
         `
+        console.log(err);
 });
 
 

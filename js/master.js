@@ -137,7 +137,6 @@ const itemObjLength = Object.keys(itemObj).length;
 creatItemList(+localStorage.getItem('page'), itemObjLength)
 creatPageNumber(itemObjLength)
 localStorage.setItem('page','')
-console.log(itemObj);
 
 
 // DOM
@@ -252,6 +251,7 @@ setInterval(() => {
             <img class="logo-link_img" src="Icons/cinema.png" alt="">
         </a>
         `
+        console.log(err);
 })
 
 

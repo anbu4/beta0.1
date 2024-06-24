@@ -3,6 +3,7 @@
 const navSearchLink = document.querySelector('.nav_search-link');
 const navbarInput = document.querySelector('.navbar_input');
 const navLinks = document.querySelectorAll('.nav_links');
+const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
 const genreBtn = document.querySelectorAll('.genre_btn');
 const header = document.querySelector('.header');
 let itemObj = JSON.parse(localStorage.getItem('moveItem'));
@@ -109,6 +110,9 @@ navSearchLink.addEventListener('click', () => {
 })
 navLinks.forEach(link =>{
     link.addEventListener('click',pullDataCatigory);
+})
+navLinksMobile.forEach(link =>{
+    link.addEventListener('click',pullDataCatigory)
 })
 genreBtn.forEach(btn =>{
     btn.addEventListener('click', pullDataGenre)
