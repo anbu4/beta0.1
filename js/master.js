@@ -4,11 +4,14 @@ const localGanre = localStorage.getItem('genre')
 if(localCatigory == 'film'){
     xmlLink = 'https://anbu4.github.io/DataFilms/film.json';
 }
+if(localCatigory == 'cartoon'){
+    xmlLink = 'https://anbu4.github.io/DataCartoon/cartoon.json';
+}
 if(localCatigory == 'anime'){
     xmlLink = 'https://anbu4.github.io/DataAnime/anime.json';
 }
 if(localCatigory == 'serial'){
-    xmlLink = 'https://anbu4.github.io/DataAnime/anime.json'
+    xmlLink = 'https://anbu4.github.io/DataSerials/serial.json'
 }
 fetch(xmlLink)
     .then(res=> res.json())
@@ -251,7 +254,7 @@ setInterval(() => {
         `
 })
 
-localStorage.setItem('moveItem', '');
+
 localStorage.setItem('episodeNum', '');
 localStorage.removeItem('scrollEp');
 

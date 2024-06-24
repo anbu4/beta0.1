@@ -117,7 +117,7 @@ setInterval(() => {
         `
 });
 
-localStorage.setItem('moveItem', '');
+
 localStorage.setItem('episodeNum', '');
 localStorage.removeItem('scrollEp');
 localStorage.removeItem('genre');
