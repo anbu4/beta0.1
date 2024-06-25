@@ -16,48 +16,48 @@ if(localCatigory == 'serial'){
 fetch(xmlLink)
     .then(res=> res.json())
     .then(arr =>{
-
-
+    const arrRev = arr.toReversed()
 // jsx fucntion
-function creatSlaydCard(re='') {
+function creatSlaydCard() {
     const slaydBox = document.querySelector('.slayd_box');
     const caption = document.querySelector('.caption');
     caption.innerHTML = localCatigory;
 
-    let count = 0
-    arr.map(item => {
-        count ++
-        if(count > 7){
-            return
-        }
+    for(let count = 1; count<=7; count++){
+        if(arr.length == 0){return}
+        let num = Math.floor(Math.random() * arr.length)
+        let rem = arr.splice(num,1)
         const creatItem = document.createElement('a');
-        creatItem.dataset.id = item.id
-        creatItem.dataset.catigory = item.category
-        creatItem.classList.add('slayd_card');
-        creatItem.id = 'item' + re + count;
-        creatItem.href = 'move.html';
-        creatItem.innerHTML = ` 
-        <div class="slayd_item">
-        <img src="${item.slaydImg}" alt="">
-        <div class="slayd_card-content">
-        <h5 class="slayd_card-title">${item.title}</h5>
-        <div>
-        <p class="slayd_card-genres">${item.genre[0]}, ${item.genre[1]}</p>
-        <p class="slayd_card-year">${item.year}</p>
-        </div>
-        </div>
-        </div>`
-        creatItem.addEventListener('click', function(){parseCard(item)})
-        slaydBox.append(creatItem)
-    })
+            creatItem.dataset.id = rem[0].id
+            creatItem.dataset.catigory = rem[0].category
+            creatItem.classList.add('slayd_card');
+            creatItem.id = 'item' + count;
+            creatItem.href = 'move.html';
+            creatItem.innerHTML = ` 
+            <div class="slayd_item">
+            <img src="${rem[0].slaydImg}" alt="">
+            <div class="slayd_card-content">
+            <h5 class="slayd_card-title">${rem[0].title}</h5>
+            <div>
+            <p class="slayd_card-genres">${rem[0].genre[0]}, ${rem[0].genre[1]}</p>
+            <p class="slayd_card-year">${rem[0].year}</p>
+            </div>
+            </div>
+            </div>`
+            creatItem.addEventListener('click', function(){parseCard(rem[0])})
+            slaydBox.append(creatItem)
+        
+        console.log(rem);   
+    }
 }
+
 const itemObj = {}
 function itemParsePages(genre){
     let count = 1
     itemObj['itemPage'+count] = [];
 
     if(genre == '' ||genre == null){
-        arr.forEach(item=>{
+        arrRev.forEach(item=>{
             if(itemObj['itemPage'+count].length >= 10){
                 count++
                 itemObj['itemPage'+count] = []
@@ -67,7 +67,7 @@ function itemParsePages(genre){
         return
     }
 
-    arr.forEach(item=>{
+    arrRev.forEach(item=>{
         let v = item.genre.find(el=>el==genre);
         if(itemObj['itemPage'+count].length >= 10){
             count++
@@ -76,8 +76,8 @@ function itemParsePages(genre){
         if(v){itemObj['itemPage'+count].push(item)}
     })
 }
-function creatItemList(i, length){
-    if(i==''){i = length}
+function creatItemList(i){
+    if(i==''){i = 1}
     const itemContainer = document.querySelector('.item_container');
     itemContainer.innerHTML = ''
     itemObj['itemPage' + i].map(item => {
@@ -108,7 +108,7 @@ function creatItemList(i, length){
             episodeNum.innerHTML = `<span>${item.episodes}</span>series`;
             creatElem.append(episodeNum)
         }
-        itemContainer.prepend(creatElem)
+        itemContainer.append(creatElem)
     })
 
    
@@ -116,25 +116,23 @@ function creatItemList(i, length){
 function creatPageNumber(length){
     const pageControlsNum = document.querySelector('.page_controls-num');
     const pageNumLocal = +localStorage.getItem('page');
-    let i = 1
 
-    for(let num = length; num >= 1; num--){
+    for(let num = 1; num <= length; num++){
         const itemNum = document.createElement('a');
         itemNum.href = 'master.html'
         itemNum.dataset.pageid = num;
-        itemNum.innerHTML = i;
-        i++
+        itemNum.innerHTML = num;
         itemNum.addEventListener('click', itemNumPageEvent);
         pageControlsNum.append(itemNum)
-        if(num == pageNumLocal || num == length && pageNumLocal == 0){
+        if(num == pageNumLocal || num == 1 && pageNumLocal == 0){
             itemNum.classList.add('active_page');
         }
     }
 }
 creatSlaydCard();
 itemParsePages(localGanre);
+creatItemList(+localStorage.getItem('page'))
 const itemObjLength = Object.keys(itemObj).length;
-creatItemList(+localStorage.getItem('page'), itemObjLength)
 creatPageNumber(itemObjLength)
 localStorage.setItem('page','')
 
