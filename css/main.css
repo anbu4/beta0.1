@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 ::-webkit-scrollbar-track{
-    background: transparent;
+    background: var(--color_dark-low);
     cursor: pointer;
 }
 /* caption */
@@ -194,6 +194,8 @@
     transition: all .5s;
     margin-top: -200px;
     padding: 5px;
+    border-radius: 0px 0px 10px 10px;
+    opacity: 0;
 }
 .navbar_mobile-content a{
     border-bottom: 1px solid #71717151;
@@ -239,15 +241,14 @@
     margin: 20px auto;
     position: relative;
     overflow: hidden;
+    border-radius: 20px;
 }
 .slayd_card{
     position: absolute;
-    width: 23%;
-    height: 47%;
-    border-radius: 20px;
-    box-shadow: 1px 1px 10px var(--color-dark);
+    width: 25%;
+    height: 50%;
     overflow: hidden;
-    transition: all 2s;
+    transition: all 1.6s;
     cursor: pointer;
 }
 .slayd_card:hover .slayd_item img{
@@ -322,66 +323,67 @@
 /* slayder #items */
 #item1{
     width: 50%;
-    height: 98%;
-    top: 1%;
-    right: 49%;
-    z-index: 3;
-}
-#itemRe1{
-    width: 50%;
-    height: 98%;
-    top: 1%;
-    left: 49%;
+    height: 100%;
+    top: 0;
+    right: 50%;
     z-index: 3;
 }
 #item2{
-    top: 1%;
+    top: 0;
     right: 25%;
-}
-#itemRe2{
-    top: 1%;
-    left: 25%;
 }
 #item3{
-    top: 1%;
-    right: .5%;
-}
-#itemRe3{
-    top: 1%;
-    left: .5%;
+    top: 0;
+    right: 0;
 }
 #item4{
-    top: 1%;
+    top: 0;
     right: -25%;
-}
-#itemRe4{
-    top: 1%;
-    left: -25%;
 }
 #item5{
-    top: 51.5%;
+    top: 50%;
     right: -25%;
 }
-#itemRe5{
-    top: 51.5%;
-    left: -25%;
-}
 #item6{
-    top: 51.5%;
-    right: .5%;
-}
-#itemRe6{
-    top: 51.5%;
-    left: .5%;
+    top: 50%;
+    right: 0;
 }
 #item7{
-    top: 51.5%;
+    top: 50%;
     right: 25%;
 }
-#itemRe7{
-    top: 51.5%;
+#itemRe1{
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+}
+#itemRe2{
+    top: 0;
     left: 25%;
 }
+#itemRe3{
+    top: 0;
+    left: 0;
+}
+#itemRe4{
+    top: 0;
+    left: -25%;
+}
+#itemRe5{
+    top: 50%;
+    left: -25%;
+}
+#itemRe6{
+    top: 50%;
+    left: 0;
+}
+#itemRe7{
+    top: 50%;
+    left: 25%;
+}
+
 /* footer */
 .footer{
     display: flex;
@@ -400,44 +402,60 @@
 .filter_box{
     display: none;
     width: 100%;
-    min-height: 30px;
-    justify-content: space-between;
-    gap: 10px;
+    justify-content: center;
+}
+.filter_content a{
+    padding: 10px 5;
+}
+.filter_content{
+    border-radius: 10px;
+    display: flex;
+    visibility: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: all .7s;
+    margin: -250px 0 0 0;
+}
+.filter_content-active{
+    margin: 0;
+    visibility: visible;
+}
+.filter_content a:active{
+    color: var(--color_red-white);
+}
+.filter_control{
+    width: 100%;
+    height: auto;
+    display: none;
     padding: 10px 15px;
-    position: relative;
+    justify-content: space-between;
+    align-items: center;
 }
 .filter_btn{
-    width: 30px;
-    height: 30px;
     display: flex;
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
 }
 .filter_btn img{
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.filter_content a{
-    padding: 10px 5;
-}
-.filter_content{
-    opacity: 1;
-    border-radius: 10px;
+.filter_view-card{
+    width: 40px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    transition: all .7s;
-    margin: -600px 0 0 0;
-    z-index: -2;
 }
-.filter_content-active{
-    margin: 0;
-    z-index: 0;
+.filter_view-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
 }
 
-.filter_content a:active{
-    color: var(--color_red-white);
-}
+
 /* items_box */
 .item_container{
     display: flex;
@@ -456,6 +474,9 @@
     flex-wrap: wrap;
     cursor: pointer;
     position: relative;
+}
+.item-corecting{
+    width: 48.9% !important;
 }
 .item_img{
     width: 100%;
@@ -762,47 +783,18 @@
     .navbar_search{
         display: none;
     }
+    .slayd_box{
+        height: 300px;
+    }
     /* master.html */
     .filter_box{
         display: flex;
     }
+    .filter_control{
+        display: flex;
+    }
 }
 @media (max-width:800px){
-    .slayd_box{
-        height: 500px;
-    }
-    .slayd_card{
-        width: 35%;
-    }
-    /* .item */
-    #itemRe3,
-    #itemRe4,
-    #itemRe5,
-    #itemRe6{
-        left: -40%;
-    }
-    #item3,
-    #item4,
-    #item5,
-    #item6{
-        right: -40%;
-    }
-    #itemRe2,
-    #itemRe7{
-        left: 2%;
-    }
-    #item2,
-    #item7{
-        right: 2%;
-    }
-    #itemRe1{
-        width: 60%;
-        left: 39%;
-    }
-    #item1{
-        width: 60%;
-        right: 39%;
-    }
 }
 @media (max-width:780px){
     ::-webkit-scrollbar{
@@ -828,6 +820,71 @@
     }
 }
 @media (max-width:650px){
+    .slayd_box{
+        height: 570px;
+    }
+    .slayd_card{
+        width: 50%;
+        height: 40%;
+    }
+    #item1{
+        width: 100%;
+        height: 60%;
+        top: 0;
+        right: 0;
+        z-index: 3;
+    }
+    #item2{
+        top: 60%;
+        right: 50%;
+    }
+    #item3{
+        top: 60%;
+        right: 0;
+    }
+    #item6,
+    #item5,
+    #item4{
+        top: 60%;
+        right: -50%;
+        opacity: 0;
+    }
+    #item7{
+        width: 100%;
+        height: 60%;
+        top: 0%;
+        right: -100%;
+        opacity: 0;
+    }
+    #itemRe1{
+        width: 100%;
+        height: 60%;
+        top: 0;
+        left: 0;
+        z-index: 3;
+    }
+    #itemRe2{
+        top: 60%;
+        left: 50%;
+    }
+    #itemRe3{
+        top: 60%;
+        left: 0;
+    }
+    #itemRe6,
+    #itemRe5,
+    #itemRe4{
+        top: 60%;
+        left: -50%;
+        opacity: 0;
+    }
+    #itemRe7{
+        width: 100%;
+        height: 60%;
+        top: 0%;
+        left: -100%;
+        opacity: 0;
+    }
     /* move.html */
     .header{
         align-items: center;
@@ -856,9 +913,6 @@
     }
 }
 @media (max-width:550px){
-    .slayd_box{
-        height: 300px;
-    }
     /* move.html */
     .header_content>div>p{
         display: flex;
@@ -874,6 +928,9 @@
     .caption{
         font-size: 30px;
         margin: 10px auto;
+    }
+    .slayd_box{
+        height: 450px;
     }
     .slayd_card-content{
         padding: 5px; 
@@ -902,6 +959,9 @@
 }
 @media (max-width:480px){
     /* master.html */
+    .item_container{
+        row-gap: 30px;
+    }
     .item_img{
         height: 270px;
     }
@@ -922,6 +982,9 @@
     }
 }
 @media (max-width:425px){
+    .slayd_box{
+        height: 370px;
+    }
     .slayd_card-content{
         display: none;
     }
@@ -950,6 +1013,7 @@
 }
 .nav_mobile-active{
     margin: 0;
+    opacity: 1;
 }
 .nav_link-active{
     padding: 7px;

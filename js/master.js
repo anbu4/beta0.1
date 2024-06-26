@@ -1,6 +1,7 @@
 let xmlLink;
 const localCatigory = localStorage.getItem('catigory')
 const localGanre = localStorage.getItem('genre')
+const localPage = localStorage.getItem('page')
 if(localCatigory == 'film'){
     xmlLink = 'https://anbu4.github.io/DataFilms/film.json';
 }
@@ -13,6 +14,7 @@ if(localCatigory == 'anime'){
 if(localCatigory == 'serial'){
     xmlLink = 'https://anbu4.github.io/DataSerials/serial.json'
 }
+
 fetch(xmlLink)
     .then(res=> res.json())
     .then(arr =>{
@@ -45,9 +47,7 @@ function creatSlaydCard() {
             </div>
             </div>`
             creatItem.addEventListener('click', function(){parseCard(rem[0])})
-            slaydBox.append(creatItem)
-        
-        console.log(rem);   
+            slaydBox.append(creatItem) 
     }
 }
 
@@ -151,6 +151,7 @@ const pageBtnPlus = document.querySelector('.page_btn-plus');
 const pageBtnMinus = document.querySelector('.page_btn-minus');
 const filterContent = document.querySelector('.filter_content');
 const filterBtn = document.querySelector('.filter_btn');
+const filterViewCard = document.querySelector('.filter_view-card');
 // 
 // let countPageii = 1
 
@@ -203,6 +204,27 @@ pageBtnMinus.addEventListener('click',() =>{
 filterBtn.addEventListener('click', () =>{
     filterContent.classList.toggle('filter_content-active')
 })
+filterViewCard.addEventListener('click', ()=>{
+    const itemContainer = document.querySelector('.item_container');
+    const items = document.querySelectorAll('.item')
+    let btnS = [filterViewCard.children[0],filterViewCard.children[1]]
+    btnS.forEach(item=>{
+        item.classList.toggle('flex')
+    })
+    items.forEach(i=>{
+        i.classList.toggle('item-corecting')
+    })
+    if(filterViewCard.children[1].className == 'flex'){
+        itemContainer.style.rowGap = '10px'
+        itemContainer.style.columnGap = '1px'
+        itemListCorect()
+    }else{
+        itemContainer.style.columnGap = '2%'
+        itemContainer.style.rowGap = '30px'
+        creatItemList(+localPage)
+    }
+    
+})
 
 // function
 function eventSlayder(slaydBoxCards) {
@@ -230,7 +252,20 @@ function parseCard(value){
     localStorage.setItem('moveItem',JSON.stringify(value))
 }
 function itemNumPageEvent(){
-   localStorage.setItem('page', this.dataset.pageid)
+    localStorage.setItem('page', this.dataset.pageid)
+}
+function itemListCorect(){
+    const itemConDp = document.querySelectorAll('.item_con-dp')
+    const itemSeries = document.querySelectorAll('.item_series')
+
+    itemSeries.forEach(ii=>{
+        let child = ii.children[0]
+        ii.innerHTML = ''
+        ii.append(child)
+    })
+    itemConDp.forEach(ii=>{
+        ii.remove()
+    })
 }
 
 

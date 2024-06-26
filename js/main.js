@@ -33,7 +33,7 @@ function creatSlaydCard(arr, boxs, re='') {
         creatSlaydCard(data.film ,'film_card-slayd');
         creatSlaydCard(data.serial , 'serial_card-slayd','Re');
         creatSlaydCard(data.anime, 'anime_card-slayd');
-        creatSlaydCard(data.cartoon, 'cartoon_card-slayd');
+        creatSlaydCard(data.cartoon, 'cartoon_card-slayd', 'Re');
 
 
 // DOM
