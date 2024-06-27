@@ -139,8 +139,6 @@ localStorage.setItem('page','')
 
 // DOM
 const slaydCards = document.querySelectorAll('.slayd_card')
-const navSearchLink = document.querySelector('.nav_search-link');
-const navbarInput = document.querySelector('.navbar_input');
 const navLinks = document.querySelectorAll('.nav_links');
 const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
 const genreBtn = document.querySelectorAll('.genre_btn');
@@ -157,23 +155,17 @@ const filterViewCard = document.querySelector('.filter_view-card');
 
 
 // Event
-navSearchLink.addEventListener('click', () => {
-    navbarInput.classList.toggle('input_active')
-})
 navLinks.forEach(link =>{
-    link.addEventListener('click',pullDataCatigory)
     if(link.dataset.catigory == localCatigory){
         link.classList.add('nav_link-active')
     }
 })
 navLinksMobile.forEach(link =>{
-    link.addEventListener('click',pullDataCatigory)
     if(link.dataset.catigory == localCatigory){
         link.classList.add('link-active')
     }
 })
 genreBtn.forEach(btn =>{
-    btn.addEventListener('click', pullDataGenre)
     if(btn.dataset.genre == localGanre && btn.dataset.catigory == localCatigory){
         btn.classList.add('link-active')
     }
@@ -290,4 +282,5 @@ setInterval(() => {
 
 localStorage.setItem('episodeNum', '');
 localStorage.removeItem('scrollEp');
+localStorage.removeItem('language');
 

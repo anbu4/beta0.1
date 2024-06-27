@@ -30,10 +30,10 @@ function creatSlaydCard(arr, boxs, re='') {
         slaydBox.append(creatItem)
     })
 }
-        creatSlaydCard(data.film ,'film_card-slayd');
-        creatSlaydCard(data.serial , 'serial_card-slayd','Re');
-        creatSlaydCard(data.anime, 'anime_card-slayd');
-        creatSlaydCard(data.cartoon, 'cartoon_card-slayd', 'Re');
+creatSlaydCard(data.film ,'film_card-slayd');
+creatSlaydCard(data.serial , 'serial_card-slayd','Re');
+creatSlaydCard(data.anime, 'anime_card-slayd');
+creatSlaydCard(data.cartoon, 'cartoon_card-slayd', 'Re');
 
 
 // DOM
@@ -42,27 +42,13 @@ const serialSlaydCards = document.querySelector('.serial_card-slayd').querySelec
 const animeSlaydCards = document.querySelector('.anime_card-slayd').querySelectorAll('.slayd_card');
 const cartonSlaydCards = document.querySelector('.cartoon_card-slayd').querySelectorAll('.slayd_card');
 const recapSlaydCards = document.querySelector('.recap_card-slayd').querySelectorAll('.slayd_card');
-const navSearchLink = document.querySelector('.nav_search-link');
-const navbarInput = document.querySelector('.navbar_input');
-const navLinks = document.querySelectorAll('.nav_links');
-const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
-const genreBtn = document.querySelectorAll('.genre_btn');
 const burger = document.querySelector('.burger');
 const navbarMobileContent = document.querySelector('.navbar_mobile-content');
 
 // Event
-navSearchLink.addEventListener('click', () =>{
-    navbarInput.classList.toggle('input_active')
-})
-navLinks.forEach(link =>{
-    link.addEventListener('click',pullDataCatigory)
-})
-navLinksMobile.forEach(link =>{
-    link.addEventListener('click',pullDataCatigory)
-})
-genreBtn.forEach(btn =>{
-    btn.addEventListener('click', pullDataGenre)
-})
+
+
+
 burger.addEventListener('click',() =>{
     navbarMobileContent.classList.toggle('nav_mobile-active')
 })
@@ -77,14 +63,7 @@ function eventSlayder(slaydBoxCards) {
         card.id = card.id.replace(/.$/, ii);
     })
 }
-function pullDataCatigory(){
-    localStorage.setItem('catigory', this.dataset.catigory)
-    localStorage.setItem('genre','')
-}
-function pullDataGenre(){
-    localStorage.setItem('catigory', this.dataset.catigory)
-    localStorage.setItem('genre', this.dataset.genre)
-}
+
 function slaydDataPush(){
     let catigory = this.dataset.catigory;
     let id = this.dataset.id;
@@ -128,3 +107,4 @@ localStorage.removeItem('scrollEp');
 localStorage.removeItem('genre');
 localStorage.removeItem('catigory');
 localStorage.removeItem('page');
+localStorage.removeItem('language');

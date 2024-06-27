@@ -1,24 +1,20 @@
 
 // DOM
-const navSearchLink = document.querySelector('.nav_search-link');
-const navbarInput = document.querySelector('.navbar_input');
-const navLinks = document.querySelectorAll('.nav_links');
-const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
-const genreBtn = document.querySelectorAll('.genre_btn');
 const header = document.querySelector('.header');
 let itemObj = JSON.parse(localStorage.getItem('moveItem'));
 const burger = document.querySelector('.burger');
 const navbarMobileContent = document.querySelector('.navbar_mobile-content');
 const videoIframe = document.querySelector('.video_iframe');
-const videoBoxBg = document.querySelector('.video_box-bg img')
+const videoBoxBg = document.querySelector('.video_box-bg img');
+const languageBox = document.querySelector('.language_box')
 
 
 
 
 
 // jsx
-function creatHeader(){
-    let genre = itemObj.genre.toString().replaceAll(",",",  ")
+function creatHeader() {
+    let genre = itemObj.genre.toString().replaceAll(",", ",  ")
     header.innerHTML = `
     <div class="header_item-img">
         <img src="${itemObj.cardImg}" alt="">
@@ -51,39 +47,41 @@ function creatHeader(){
     </div>
     
     `;
-    if(itemObj.episodes == undefined || itemObj.episodes == ''){
+    if (itemObj.episodes == undefined || itemObj.episodes == '') {
         header.querySelector('.head_episode').remove()
     }
-    if(itemObj.summary == undefined || itemObj.summary == ''){
+    if (itemObj.summary == undefined || itemObj.summary == '') {
         header.querySelector('.head_description').remove()
     }
 }
-function creatVideo(){
-    if(typeof itemObj.videoUrl == 'object'){
-        let count = localStorage.getItem('episodeNum')
-        if(count == null || count == ''){count = 1}
-        videoIframe.src = itemObj.videoUrl[count];  
+function creatVideo(language) {
+    if (language == null || language == '') { language = 'Eng' }
+
+    if (itemObj.episodes == undefined) {
+        videoIframe.src = itemObj.videoUrl[language];
         videoBoxBg.src = itemObj.slaydImg;
         return
     }
-    videoIframe.src = itemObj.videoUrl;
-    videoBoxBg.src = itemObj.slaydImg;
 
+    let count = localStorage.getItem('episodeNum')
+    if (count == null || count == '') { count = 1 }
+    videoIframe.src = itemObj.videoUrl[language][count];
+    videoBoxBg.src = itemObj.slaydImg;
 }
-function creatNumEpisode(){
+function creatNumEpisode() {
     const episodeNumBox = document.querySelector('.episode_num-box');
     let num = localStorage.getItem('episodeNum')
-    if(itemObj.episodes == undefined){ return episodeNumBox.remove()};
+    if (itemObj.episodes == undefined) { return episodeNumBox.remove() };
 
-    for(let i = 1; i <= itemObj.episodes; i++){
+    for (let i = 1; i <= itemObj.episodes; i++) {
         const btnNum = document.createElement('a');
         btnNum.href = 'move.html'
-        btnNum.addEventListener('click',function(){localStorage.setItem('episodeNum', i)});
+        btnNum.addEventListener('click', function () { localStorage.setItem('episodeNum', i) });
         btnNum.innerHTML = i;
-        if(num == null || num == '' && i == 1){
+        if (num == null || num == '' && i == 1) {
             btnNum.classList.add('episode_num-active')
         }
-        if(num == i){
+        if (num == i) {
             btnNum.classList.add('episode_num-active')
         }
         episodeNumBox.append(btnNum);
@@ -91,13 +89,35 @@ function creatNumEpisode(){
 
     // scroll
     episodeNumBox.scrollLeft = localStorage.getItem('scrollEp')
-    episodeNumBox.addEventListener('scroll',function(){
+    episodeNumBox.addEventListener('scroll', function () {
         localStorage.setItem('scrollEp', episodeNumBox.scrollLeft)
     })
 }
+function languageView() {
+    let lan = localStorage.getItem('language')
+    const btnEng = document.createElement('a');
+    btnEng.href = 'move.html'
+    btnEng.addEventListener('click', languagePush)
+    btnEng.innerHTML = 'Eng'
+
+    languageBox.append(btnEng)
+    if (itemObj.videoUrl.Ru != undefined) {
+        const btnRu = document.createElement('a');
+        btnRu.href = 'move.html'
+        btnRu.addEventListener('click', languagePush)
+        btnRu.innerHTML = 'Ru'
+        languageBox.append(btnRu)
+
+        if (lan == 'Ru') { btnRu.classList.add('language_link-active') }
+    }
+
+
+    if (lan == undefined || lan == 'Eng') { btnEng.classList.add('language_link-active') }
+}
 creatHeader()
-creatVideo()
+creatVideo(localStorage.getItem('language'))
 creatNumEpisode()
+languageView()
 
 // jsxDom
 const burgerSummary = document.querySelector('.burger_summary');
@@ -105,34 +125,18 @@ const headSummary = document.querySelector('.head_description-volue');
 
 
 // Event
-navSearchLink.addEventListener('click', () => {
-    navbarInput.classList.toggle('input_active');
-})
-navLinks.forEach(link =>{
-    link.addEventListener('click',pullDataCatigory);
-})
-navLinksMobile.forEach(link =>{
-    link.addEventListener('click',pullDataCatigory)
-})
-genreBtn.forEach(btn =>{
-    btn.addEventListener('click', pullDataGenre)
-})
 burgerSummary.addEventListener('click', () => {
     headSummary.classList.toggle('flex');
 })
-burger.addEventListener('click',() =>{
+burger.addEventListener('click', () => {
     navbarMobileContent.classList.toggle('nav_mobile-active')
 })
 
 
 // function
-function pullDataCatigory(){
-    localStorage.setItem('catigory', this.dataset.catigory);
-    localStorage.setItem('genre','');
-}
-function pullDataGenre(){
-    localStorage.setItem('catigory', this.dataset.catigory)
-    localStorage.setItem('genre', this.dataset.genre)
+
+function languagePush() {
+    localStorage.setItem('language', this.innerText)
 }
 
 
