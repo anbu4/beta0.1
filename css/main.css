@@ -829,6 +829,8 @@
     position: absolute;
     top: 0;
     right: 0;
+    background: var(--slayd_content-bg);
+    border-radius: 0 15px 0 15px;
 }
 /*  */
 /* moveRecap.html */
