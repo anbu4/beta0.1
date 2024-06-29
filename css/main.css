@@ -47,6 +47,11 @@
     background: var(--color_dark-low);
     cursor: pointer;
 }
+.diable_scroll{
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+}
 /* caption */
 .caption{
     width: 100%;
@@ -58,6 +63,31 @@
     justify-content: center;
     text-transform: uppercase;
     font-weight: 600;
+}
+/* wait */
+.loading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    font-size: 18px;
+    gap: 10px;
+}
+.wait{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    animation: loading .7s infinite linear;
+}
+@keyframes loading {
+    0%
+    {
+        transform: rotate(0deg);
+    }
+    100%
+    {
+        transform: rotate(-360deg);
+    }
 }
 /* .navbar */
 .navbar{

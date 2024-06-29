@@ -22,6 +22,7 @@ fetch(xmlLink)
 // jsx fucntion
 function creatSlaydCard() {
     const slaydBox = document.querySelector('.slayd_box');
+    slaydBox.innerHTML = ''
     const caption = document.querySelector('.caption');
     caption.innerHTML = localCatigory;
 
@@ -58,7 +59,7 @@ function itemParsePages(genre){
 
     if(genre == '' ||genre == null){
         arrRev.forEach(item=>{
-            if(itemObj['itemPage'+count].length >= 10){
+            if(itemObj['itemPage'+count].length >= 20){
                 count++
                 itemObj['itemPage'+count] = []
             }
@@ -69,7 +70,7 @@ function itemParsePages(genre){
 
     arrRev.forEach(item=>{
         let v = item.genre.find(el=>el==genre);
-        if(itemObj['itemPage'+count].length >= 10){
+        if(itemObj['itemPage'+count].length >= 20){
             count++
             itemObj['itemPage'+count] = []
         }

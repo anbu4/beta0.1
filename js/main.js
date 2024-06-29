@@ -7,6 +7,7 @@ fetch('https://anbu4.github.io/DataApp/data.json')
 // jsx fucntion
 function creatSlaydCard(arr, boxs, re='') {
     const slaydBox = document.querySelector(`.${boxs}`);
+    slaydBox.innerHTML = ''
 
     arr.map(item => {    
         const creatItem = document.createElement('a');
@@ -34,6 +35,7 @@ function creatSlaydCard(arr, boxs, re='') {
 }
 function createRecapCard(arr, boxs, re='') {
     const slaydBox = document.querySelector('.recap_card-slayd');
+    slaydBox.innerHTML = ''
 
     arr.map(item => {    
         const creatItem = document.createElement('a');
