@@ -2,8 +2,6 @@
 // DOM
 const header = document.querySelector('.header');
 let itemObj = JSON.parse(localStorage.getItem('moveItem'));
-const burger = document.querySelector('.burger');
-const navbarMobileContent = document.querySelector('.navbar_mobile-content');
 const videoIframe = document.querySelector('.video_iframe');
 const videoBoxBg = document.querySelector('.video_box-bg img');
 const languageBox = document.querySelector('.language_box')
@@ -127,9 +125,6 @@ const headSummary = document.querySelector('.head_description-volue');
 // Event
 burgerSummary.addEventListener('click', () => {
     headSummary.classList.toggle('flex');
-})
-burger.addEventListener('click', () => {
-    navbarMobileContent.classList.toggle('nav_mobile-active')
 })
 
 

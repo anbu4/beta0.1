@@ -8,7 +8,7 @@ if(localCatigory == 'film'){
 if(localCatigory == 'cartoon'){
     xmlLink = 'https://anbu4.github.io/DataCartoon/cartoon.json';
 }
-if(localCatigory == 'anime'){
+if(localCatigory == 'anime' || localCatigory == 'recap'){
     xmlLink = 'https://anbu4.github.io/DataAnime/anime.json';
 }
 if(localCatigory == 'serial'){
@@ -143,8 +143,6 @@ const navLinks = document.querySelectorAll('.nav_links');
 const navLinksMobile = document.querySelectorAll('.nav_links-mobile');
 const genreBtn = document.querySelectorAll('.genre_btn');
 const genreBtnMobile = document.querySelectorAll('.genre_btn-mobile');
-const burger = document.querySelector('.burger');
-const navbarMobileContent = document.querySelector('.navbar_mobile-content');
 const pageBtnPlus = document.querySelector('.page_btn-plus');
 const pageBtnMinus = document.querySelector('.page_btn-minus');
 const filterContent = document.querySelector('.filter_content');
@@ -175,9 +173,6 @@ genreBtnMobile.forEach(btn =>{
     if(btn.dataset.genre == localGanre){
         btn.classList.add('link-active')
     }
-})
-burger.addEventListener('click',() =>{
-    navbarMobileContent.classList.toggle('nav_mobile-active')
 })
 pageBtnPlus.addEventListener('click',() =>{
     let pageNum = ++document.querySelector('.active_page').dataset.pageid;

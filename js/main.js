@@ -26,7 +26,31 @@ function creatSlaydCard(arr, boxs, re='') {
                   </div>
             </div>
         </div>`
-        creatItem.addEventListener('click', slaydDataPush)
+        creatItem.addEventListener('click', function(){
+            localStorage.setItem('moveItem',JSON.stringify(item))
+        })
+        slaydBox.append(creatItem)
+    })
+}
+function createRecapCard(arr, boxs, re='') {
+    const slaydBox = document.querySelector('.recap_card-slayd');
+
+    arr.map(item => {    
+        const creatItem = document.createElement('a');
+        creatItem.dataset.id = item.id
+        creatItem.classList.add('slayd_card');
+        creatItem.id = 'item' + re + item.id;
+        creatItem.href = 'moveRecap.html';
+        creatItem.innerHTML = ` 
+        <div class="slayd_item">
+            <img src="${item.slaydImg}" alt="">
+            <div class="slayd_card-content">
+                  <h5 class="slayd_card-title">${item.title}</h5>
+            </div>
+        </div>`
+        creatItem.addEventListener('click', function(){
+            localStorage.setItem('recapItem',JSON.stringify(item))
+        })
         slaydBox.append(creatItem)
     })
 }
@@ -34,6 +58,8 @@ creatSlaydCard(data.film ,'film_card-slayd');
 creatSlaydCard(data.serial , 'serial_card-slayd','Re');
 creatSlaydCard(data.anime, 'anime_card-slayd');
 creatSlaydCard(data.cartoon, 'cartoon_card-slayd', 'Re');
+createRecapCard(data.recap)
+
 
 
 // DOM
@@ -42,16 +68,9 @@ const serialSlaydCards = document.querySelector('.serial_card-slayd').querySelec
 const animeSlaydCards = document.querySelector('.anime_card-slayd').querySelectorAll('.slayd_card');
 const cartonSlaydCards = document.querySelector('.cartoon_card-slayd').querySelectorAll('.slayd_card');
 const recapSlaydCards = document.querySelector('.recap_card-slayd').querySelectorAll('.slayd_card');
-const burger = document.querySelector('.burger');
-const navbarMobileContent = document.querySelector('.navbar_mobile-content');
-
-// Event
 
 
 
-burger.addEventListener('click',() =>{
-    navbarMobileContent.classList.toggle('nav_mobile-active')
-})
 // function
 function eventSlayder(slaydBoxCards) {
     slaydBoxCards.forEach(function (card) {
@@ -64,12 +83,6 @@ function eventSlayder(slaydBoxCards) {
     })
 }
 
-function slaydDataPush(){
-    let catigory = this.dataset.catigory;
-    let id = this.dataset.id;
-    let value = data[catigory].find((el)=>el.id == id)
-    localStorage.setItem('moveItem',JSON.stringify(value))
-}
 // setInterval
 setInterval(() => {
     eventSlayder(filmSlaydCards)
